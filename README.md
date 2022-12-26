@@ -1,5 +1,5 @@
 # ohbrother
-Brother Printer Admin Panel Dictionary attack (Designed for the HL-L2360D series)
+Brother Printer Admin Panel Dictionary attack tool (Designed for the HL-L2360D series)
 ```
 usage: ohbrother.py [-h] --ip-address IP_ADDRESS [--port PORT] [--wordlist WORDLIST]
 
