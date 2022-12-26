@@ -125,6 +125,8 @@ if __name__ == "__main__":
         "--dictionary-attack",
         "-D",
         help=f"IP Address of the printer", 
+        action="store_true",
+        default=False
     )
     parser.add_argument(
         "--print-spam",
