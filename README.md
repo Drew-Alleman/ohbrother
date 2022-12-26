@@ -32,7 +32,7 @@ Ohbrother checks for common default brother passwords
 
 ```
 C:\Users\DrewQ\Desktop\Brother>python main.py --wordlist "C:\Users\DrewQ\Downloads\passwords.txt" --ip-address 192.168.0.77
-[23:14:00] INFO - [*] default password was set: initpas
+[23:14:00] INFO - [*] default password was set: initpass
 ```
 
 ## Print Spam
