@@ -40,7 +40,7 @@ class Brother:
         """ Prints a test sheet
         """
         payload: dict = {
-            "B10b": "",
+            "B10a": "",
             "pageid":4
         }
         test_sheet_url = f"{self.url}general/lists.html"
